@@ -1,0 +1,43 @@
+:root {
+  --bg: #f2f2f7; --card: #ffffff; --text: #000; --secondary: rgba(60,60,67,.6);
+  --separator: rgba(60,60,67,.18); --accent: #20744a; --accent-text: #fff; --ok: #34c759;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #000; --card: #1c1c1e; --text: #fff; --secondary: rgba(235,235,245,.6); --separator: rgba(84,84,88,.6); --accent: #3fb97a; --accent-text: #00140a; }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--text); }
+body {
+  font: 17px/1.4 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased; min-height: 100vh;
+  padding: calc(env(safe-area-inset-top) + 32px) 20px calc(env(safe-area-inset-bottom) + 24px);
+}
+main { max-width: 440px; margin: 0 auto; }
+main.center { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 18vh; gap: 16px; }
+header { text-align: center; margin-bottom: 28px; }
+.logo { width: 76px; height: 76px; border-radius: 18px; box-shadow: 0 4px 16px rgba(0,0,0,.12); }
+h1 { font-size: 28px; font-weight: 700; letter-spacing: .3px; margin: 14px 0 6px; }
+.subtitle { color: var(--secondary); margin: 0; }
+.card { background: var(--card); border-radius: 14px; padding: 4px 16px; }
+.step { display: flex; gap: 14px; padding: 14px 0; align-items: flex-start; }
+.step + .step { border-top: .5px solid var(--separator); }
+.badge {
+  flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--bg);
+  color: var(--secondary); font-weight: 600; font-size: 15px; display: grid; place-items: center;
+}
+.step.done .badge { background: var(--ok); color: #fff; }
+.step.active .badge { background: var(--accent); color: var(--accent-text); }
+.step h2 { font-size: 17px; font-weight: 600; margin: 3px 0 2px; }
+.step p { margin: 0; color: var(--secondary); font-size: 15px; }
+.step .button { margin-top: 12px; }
+.share { display: inline-block; width: 16px; height: 16px; vertical-align: -2px; }
+.button {
+  display: block; width: 100%; padding: 14px 16px; border: 0; border-radius: 12px; font: inherit;
+  font-weight: 600; text-align: center; text-decoration: none; cursor: pointer;
+  background: rgba(118,118,128,.16); color: var(--accent);
+}
+.button.primary { background: var(--accent); color: var(--accent-text); }
+.button:disabled { opacity: .5; }
+.note { color: var(--secondary); font-size: 13px; text-align: center; margin: 18px 8px 0; }
+.error { color: #ff3b30; font-size: 15px; margin-top: 10px; }
+[hidden] { display: none !important; }

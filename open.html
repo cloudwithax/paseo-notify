@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Opening Paseo…</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="center">
+  <img class="logo" src="icon-192.png" alt="">
+  <h1>Opening Paseo…</h1>
+  <a id="open" class="button primary" href="paseo://">Open in Paseo</a>
+</main>
+<script>
+  const to = new URLSearchParams(location.search).get("to") || "paseo://";
+  const safe = to.startsWith("paseo:") ? to : "paseo://";
+  document.getElementById("open").href = safe;
+  location.replace(safe);
+</script>
+</body>
+</html>
