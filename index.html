@@ -17,7 +17,7 @@
   <header>
     <img class="logo" src="icon-192.png" alt="">
     <h1>Paseo Notifications</h1>
-    <p class="subtitle" id="subtitle">Get notified when your agents finish or need you.</p>
+    <p class="subtitle" id="subtitle">Get notified when agents on any of your hosts finish or need you.</p>
   </header>
 
   <section class="card" id="missing" hidden>
@@ -40,26 +40,23 @@
     </div></div>
     <div class="step" id="step-connect"><div class="badge">3</div><div>
       <h2>Finish in Paseo</h2>
-      <p id="connect-text">Hand this device's push address to Paseo.</p>
+      <p id="connect-text">Hand this device's push address to Paseo. It shares it with all your hosts.</p>
       <a class="button primary" id="connect" hidden>Finish in Paseo</a>
     </div></div>
   </section>
 
-  <p class="note" id="note">Notifications are sent by the Native Push plugin on your computer and pause while the Paseo app is open.</p>
+  <p class="note" id="note">Notifications are sent by the Native Push plugin on each of your computers and pause while the Paseo app is open.</p>
 </main>
 <script>
 (function () {
   const params = new URLSearchParams(location.search);
   const vapidKey = params.get("k");
-  const serverId = params.get("s");
   const deviceId = params.get("d");
-  const hostName = params.get("n");
   const $ = (id) => document.getElementById(id);
   const standalone = navigator.standalone === true || matchMedia("(display-mode: standalone)").matches;
 
-  if (!vapidKey || !serverId || !deviceId) { $("missing").hidden = false; return; }
+  if (!vapidKey || !deviceId) { $("missing").hidden = false; return; }
   $("steps").hidden = false;
-  if (hostName) $("subtitle").textContent = "Get notified when agents on " + hostName + " finish or need you.";
 
   const setStep = (id, state) => { $(id).classList.remove("active", "done"); if (state) $(id).classList.add(state); };
   const b64urlToBytes = (s) => {
@@ -72,7 +69,7 @@
   function showConnect(subscription) {
     const sub = subscription.toJSON();
     const payload = toB64url(JSON.stringify({ endpoint: sub.endpoint, keys: sub.keys }));
-    const link = "paseo://push/subscribe?s=" + encodeURIComponent(serverId) + "&d=" + encodeURIComponent(deviceId) + "&sub=" + payload;
+    const link = "paseo://push/subscribe?d=" + encodeURIComponent(deviceId) + "&sub=" + payload;
     setStep("step-enable", "done");
     setStep("step-connect", "active");
     $("enable").hidden = true;
